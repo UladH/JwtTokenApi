@@ -14,4 +14,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AppDependencyInjection\AppDependencyInjection.csproj" />
+  </ItemGroup>
+
 </Project>

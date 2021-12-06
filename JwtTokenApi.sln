@@ -3,19 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{EAB0E34F-496E-4175-A2DC-1EE8DDECBFFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{EAB0E34F-496E-4175-A2DC-1EE8DDECBFFC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{80D8ABF0-818E-40CB-8222-4AFA24E093C0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{A38A14B3-F14E-409B-AFAD-CEBD30D80975}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Contracts", "Domain.Contracts\Domain.Contracts.csproj", "{3B5AF853-E1F1-4EE3-B4F9-FF369A455671}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Contracts", "Domain.Contracts\Domain.Contracts.csproj", "{3B5AF853-E1F1-4EE3-B4F9-FF369A455671}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Repositories", "Domain.Repositories\Domain.Repositories.csproj", "{8B6CEF38-F23E-4DF5-A71A-A7CF5278E921}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Repositories", "Domain.Repositories\Domain.Repositories.csproj", "{8B6CEF38-F23E-4DF5-A71A-A7CF5278E921}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Contracts", "App.Contracts\App.Contracts.csproj", "{BF2AE932-02C0-424A-8B69-BC04CDC0DF55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Contracts", "App.Contracts\App.Contracts.csproj", "{BF2AE932-02C0-424A-8B69-BC04CDC0DF55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Services", "App.Services\App.Services.csproj", "{E01690B1-4F2C-42A9-A32C-AE9643F6281D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.Services", "App.Services\App.Services.csproj", "{E01690B1-4F2C-42A9-A32C-AE9643F6281D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppDependencyInjection", "AppDependencyInjection\AppDependencyInjection.csproj", "{68106E69-9647-436F-953F-D4A46E91EBB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppConfiguration", "AppConfiguration\AppConfiguration.csproj", "{0EC41561-32E2-42AA-96EB-585A328DAEA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +47,14 @@ Global
 		{E01690B1-4F2C-42A9-A32C-AE9643F6281D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E01690B1-4F2C-42A9-A32C-AE9643F6281D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E01690B1-4F2C-42A9-A32C-AE9643F6281D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68106E69-9647-436F-953F-D4A46E91EBB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68106E69-9647-436F-953F-D4A46E91EBB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68106E69-9647-436F-953F-D4A46E91EBB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68106E69-9647-436F-953F-D4A46E91EBB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EC41561-32E2-42AA-96EB-585A328DAEA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EC41561-32E2-42AA-96EB-585A328DAEA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EC41561-32E2-42AA-96EB-585A328DAEA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EC41561-32E2-42AA-96EB-585A328DAEA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +64,8 @@ Global
 		{8B6CEF38-F23E-4DF5-A71A-A7CF5278E921} = {80D8ABF0-818E-40CB-8222-4AFA24E093C0}
 		{BF2AE932-02C0-424A-8B69-BC04CDC0DF55} = {80D8ABF0-818E-40CB-8222-4AFA24E093C0}
 		{E01690B1-4F2C-42A9-A32C-AE9643F6281D} = {80D8ABF0-818E-40CB-8222-4AFA24E093C0}
+		{68106E69-9647-436F-953F-D4A46E91EBB7} = {A38A14B3-F14E-409B-AFAD-CEBD30D80975}
+		{0EC41561-32E2-42AA-96EB-585A328DAEA8} = {A38A14B3-F14E-409B-AFAD-CEBD30D80975}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BD27A2A5-A28A-491C-84C6-43913BAF6D9A}

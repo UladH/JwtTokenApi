@@ -1,4 +1,12 @@
+using AppDependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDataAccessServices();
+builder.Services.AddIdentityServices();
+builder.Services.AddInfrastructureServices();
+builder.Services.AddDomainLayerServices();
+builder.Services.AddAppLayerServices();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
