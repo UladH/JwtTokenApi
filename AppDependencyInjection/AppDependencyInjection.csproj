@@ -12,8 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\App.Contracts\App.Contracts.csproj" />
+    <ProjectReference Include="..\App.Services\App.Services.csproj" />
     <ProjectReference Include="..\AppConfiguration\AppConfiguration.csproj" />
     <ProjectReference Include="..\AppDbContext\AppDbContext.csproj" />
+    <ProjectReference Include="..\AppMapper\AppMapper.csproj" />
+    <ProjectReference Include="..\Domain.Repositories\Domain.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

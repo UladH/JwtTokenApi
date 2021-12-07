@@ -1,4 +1,5 @@
 ﻿using AppConfiguration;
+using AppExceptions.Identity;
 using Newtonsoft.Json;
 using System.Net;
 using WebApi.Models;
@@ -85,6 +86,8 @@ namespace WebApi.Middleware
 
             switch (exception)
             {
+                case IdentityException e:
+                    return (int)HttpStatusCode.BadRequest;
                 case KeyNotFoundException e:
                     return (int)HttpStatusCode.NotFound;
                 case UnauthorizedAccessException e:

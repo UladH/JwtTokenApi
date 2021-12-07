@@ -1,6 +1,7 @@
 ﻿using AppConfiguration;
 using AppConfiguration.Constants;
 using Domain.Contracts.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +40,9 @@ namespace AppDbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<UserRole>().ToTable("UserRole");
         }
 
         #endregion

@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AppExceptions\AppExceptions.csproj" />
-    <ProjectReference Include="..\Domain.Contracts\Domain.Contracts.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
