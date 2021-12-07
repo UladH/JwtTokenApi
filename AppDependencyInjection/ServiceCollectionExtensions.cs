@@ -1,13 +1,17 @@
 ﻿using App.Contracts.Interfaces;
 using App.Services.Services;
 using AppConfiguration;
+using AppConfiguration.Constants;
 using AppDbContext;
 using AppMapper;
 using Domain.Contracts.Interfaces.Identity;
 using Domain.Contracts.Models;
 using Domain.Repositories.IdentityManagers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace AppDependencyInjection
 {
@@ -21,20 +25,36 @@ namespace AppDependencyInjection
             services.AddScoped<IAppDbContext>(sp => sp.GetRequiredService<AppDbContext.AppDbContext>());
         }
 
-        public static void AddIdentityServices(this IServiceCollection services)
+        public static void AddIdentityServices(this IServiceCollection services, IAppConfiguration configuration)
         {
             services.AddIdentity<User, UserRole>(cfg =>
             {
                 cfg.User.RequireUniqueEmail = true;
             })
                 .AddEntityFrameworkStores<AppDbContext.AppDbContext>()
-                .AddUserManager<AppUserManager>();
+                .AddUserManager<AppUserManager>()
+                .AddSignInManager<AppSignInManager>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddCookie()
-                .AddJwtBearer();
+                .AddJwtBearer(cfg => {
+                    cfg.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = configuration.Get(TokenKeys.Issuer),
+                        ValidAudience = configuration.Get(TokenKeys.Audience),
+                        LifetimeValidator = (DateTime? notBefore, DateTime? expires, SecurityToken tokenToValidate, TokenValidationParameters @param) => {
+                            return expires == null ? false : expires > DateTime.UtcNow;
+                        },
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.Get(TokenKeys.Key)))
+                    };
+                });
 
             services.AddScoped<IAppUserManager>(sp => sp.GetRequiredService<AppUserManager>());
+            services.AddScoped<IAppSignInManager>(sp => sp.GetRequiredService<AppSignInManager>());
         }
 
         public static void AddInfrastructureServices(this IServiceCollection services)
@@ -49,6 +69,7 @@ namespace AppDependencyInjection
 
         public static void AddAppLayerServices(this IServiceCollection services)
         {
+            services.AddTransient<IJwtService, JwtService>();
             services.AddTransient<IUserService, UserService>();
         }
 

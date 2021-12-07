@@ -20,6 +20,17 @@ namespace AppMapper.Profiles
                     opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.UserName,
                     opt => opt.MapFrom(src => src.UserName));
+
+            CreateMap<User, UserForJwtModel>()
+                .ForMember(dest => dest.Email,
+                    opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.UserName,
+                    opt => opt.MapFrom(src => src.UserName))
+                .ReverseMap()
+                .ForMember(dest => dest.Email,
+                    opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.UserName,
+                    opt => opt.MapFrom(src => src.UserName));
         }
 
         #endregion

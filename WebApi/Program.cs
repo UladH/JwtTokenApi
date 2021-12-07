@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = StartUpServices.GetConfiguration(builder.Environment);
 
 builder.Services.AddDataAccessServices();
-builder.Services.AddIdentityServices();
+builder.Services.AddIdentityServices(configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddDomainLayerServices();
 builder.Services.AddAppLayerServices();

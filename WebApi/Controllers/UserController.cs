@@ -31,6 +31,14 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(UserLoginModel model)
+        {
+            var tokenModel = await userService.Login(model);
+            return Ok(tokenModel);
+        }
+
         #endregion
 
     }

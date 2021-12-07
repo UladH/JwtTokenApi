@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\App.Contracts\App.Contracts.csproj" />
+    <ProjectReference Include="..\AppConfiguration\AppConfiguration.csproj" />
     <ProjectReference Include="..\Domain.Contracts\Domain.Contracts.csproj" />
   </ItemGroup>
 
