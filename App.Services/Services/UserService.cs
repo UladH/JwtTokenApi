@@ -37,7 +37,7 @@ namespace App.Services.Services
             return result.Succeeded;
         }
 
-        public async Task<TokenModel> Login(UserLoginModel userLoginModel)
+        public async Task<TokenPairModel> Login(UserLoginModel userLoginModel)
         {
             var user = await userManager.FindByEmailAsync(userLoginModel.Login);
 
@@ -59,7 +59,7 @@ namespace App.Services.Services
             }
 
             var userForJwtModel = mapper.Map<User, UserForJwtModel>(user);
-            var tokenModel = jwtService.CreateToken(userForJwtModel);
+            var tokenModel = await jwtService.CreateTokenPair(userForJwtModel);
 
             return tokenModel;
         }

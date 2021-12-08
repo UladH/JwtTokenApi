@@ -4,6 +4,6 @@ namespace App.Contracts.Interfaces
 {
     public interface IJwtService
     {
-        TokenModel CreateToken(UserForJwtModel user);
+        Task<TokenPairModel> CreateTokenPair(UserForJwtModel userForJwt);
     }
 }

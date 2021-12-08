@@ -5,8 +5,10 @@ using AppConfiguration.Constants;
 using AppDbContext;
 using AppMapper;
 using Domain.Contracts.Interfaces.Identity;
+using Domain.Contracts.Interfaces.Repositories;
 using Domain.Contracts.Models;
 using Domain.Repositories.IdentityManagers;
+using Domain.Repositories.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -65,6 +67,8 @@ namespace AppDependencyInjection
 
         public static void AddDomainLayerServices(this IServiceCollection services)
         {
+            services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddTransient<IRepositoryManager, RepositoryManager>();
         }
 
         public static void AddAppLayerServices(this IServiceCollection services)

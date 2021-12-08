@@ -9,6 +9,8 @@ namespace AppDbContext
 {
     public class AppDbContext : IdentityDbContext<User, UserRole, string>, IAppDbContext
     {
+        DbSet<RefreshToken> RefreshTokens { get; set; }
+
         private IAppConfiguration appConfiguration;
 
         #region constructor
@@ -43,6 +45,8 @@ namespace AppDbContext
 
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<UserRole>().ToTable("UserRole");
+
+            modelBuilder.Entity<RefreshToken>().HasIndex(t => t.Token).IsUnique();
         }
 
         #endregion
