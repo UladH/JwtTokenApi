@@ -86,6 +86,8 @@ namespace WebApi.Middleware
 
             switch (exception)
             {
+                case TimeoutException e:
+                    return (int)HttpStatusCode.BadRequest;
                 case IdentityException e:
                     return (int)HttpStatusCode.BadRequest;
                 case KeyNotFoundException e:

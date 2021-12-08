@@ -2,7 +2,7 @@
 
 namespace AppExceptions.Identity
 {
-    public class IdentityException : Exception
+    public class IdentityException : ApplicationException
     {
         #region constructor
 

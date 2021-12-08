@@ -4,6 +4,6 @@ namespace Domain.Contracts.Models
 {
     public class User: IdentityUser
     {
-        public List<RefreshToken> RefreshTokens { get; set; }
+        public List<RefreshToken>? RefreshTokens { get; set; }
     }
 }

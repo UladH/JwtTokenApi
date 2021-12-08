@@ -2,6 +2,7 @@
 using App.Contracts.Models;
 using AppConfiguration;
 using AppConfiguration.Constants;
+using AutoMapper;
 using Domain.Contracts.Interfaces.Identity;
 using Domain.Contracts.Interfaces.Repositories;
 using Domain.Contracts.Models;
@@ -19,6 +20,7 @@ namespace App.Services.Services
         private IAppUserManager userManager;
         private IRepositoryManager repositoryManager;
         private IAppConfiguration configuration;
+        private IMapper mapper;
 
         #region constructor
 
@@ -27,6 +29,7 @@ namespace App.Services.Services
             configuration = provider.GetService<IAppConfiguration>();
             userManager = provider.GetService<IAppUserManager>();
             repositoryManager = provider.GetService<IRepositoryManager>();
+            mapper = provider.GetService<IMapper>();
         }
 
         #endregion
@@ -36,6 +39,40 @@ namespace App.Services.Services
         public async Task<TokenPairModel> CreateTokenPair(UserForJwtModel userForJwt)
         {
             var user = await userManager.FindByEmailAsync(userForJwt.Email);
+            return CreateTokenPair(user);
+        }
+
+        public TokenPairModel CreateTokenPairByRefreshToken(RefreshTokenModel refreshTokenModel)
+        {
+            var refreshToken = repositoryManager.RefreshTokenRepository.GetByToken(refreshTokenModel.RefreshToken);
+
+            if(refreshToken == null)
+            {
+                repositoryManager.SaveChanges();
+                throw new KeyNotFoundException("Current token doesn't exist");
+            }
+
+            repositoryManager.RefreshTokenRepository.DeleteExpiredTokensByUserId(refreshToken.User.Id);
+
+            if(refreshToken.Expiration < DateTimeOffset.UtcNow)
+            {
+                repositoryManager.SaveChanges();
+                throw new TimeoutException("Token expired");
+            }
+
+            repositoryManager.RefreshTokenRepository.Delete(refreshToken);
+
+            repositoryManager.SaveChanges();
+            return CreateTokenPair(refreshToken.User);
+        }
+
+        #endregion
+
+        #region private
+
+        private TokenPairModel CreateTokenPair(User user)
+        {
+            var userForJwt = mapper.Map<User, UserForJwtModel>(user);
             var token = GenerateJwtToken(userForJwt);
             var refreshToken = GenerateRefreshToken(user);
 
@@ -51,10 +88,6 @@ namespace App.Services.Services
             repositoryManager.SaveChanges();
             return tokenModel;
         }
-
-        #endregion
-
-        #region private
 
         private JwtSecurityToken GenerateJwtToken(UserForJwtModel user)
         {
@@ -87,7 +120,7 @@ namespace App.Services.Services
             return new RefreshToken()
             {
                 Token = token,
-                Expiration = DateTime.UtcNow.AddSeconds(configuration.Get<double>(TokenKeys.RefreshTokenExpiryInSeconds)),
+                Expiration = DateTimeOffset.UtcNow.AddSeconds(configuration.Get<double>(TokenKeys.RefreshTokenExpiryInSeconds)),
                 User = user
             };
         }
